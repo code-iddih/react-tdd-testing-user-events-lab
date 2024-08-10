@@ -1,6 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import '@testing-library/jest-dom';
-
 import App from "../App";
 
 // Portfolio Elements
@@ -21,7 +20,7 @@ test("displays an image of yourself", () => {
 
   const image = screen.getByAltText("My profile pic");
 
-  expect(image).toHaveAttribute("src", "https://via.placeholder.com/350");
+  expect(image).toHaveAttribute("src", "https://cdn.pixabay.com/photo/2023/10/20/03/36/mushrooms-8328101_640.jpg");
 });
 
 test("displays second-level heading with the text `About Me`", () => {
@@ -38,7 +37,7 @@ test("displays second-level heading with the text `About Me`", () => {
 test("displays a paragraph for your biography", () => {
   render(<App />);
 
-  const bio = screen.getByText(/lorem ipsum/i);
+  const bio = screen.getByText(/i love nature/i);
 
   expect(bio).toBeInTheDocument();
 });
@@ -63,8 +62,6 @@ test("displays the correct links", () => {
     expect.stringContaining("https://linkedin.com")
   );
 });
-
-// My Added Comments
 
 // Newsletter Form - Initial State
 test("the form includes text inputs for name and email address", () => {
@@ -91,13 +88,13 @@ test("the checkboxes are initially unchecked", () => {
 test("the page shows information the user types into the name and email address form fields", () => {
   render(<App />);
   fireEvent.change(screen.getByLabelText(/name/i), {
-    target: { value: "John Doe" },
+    target: { value: "Code Iddih" },
   });
   fireEvent.change(screen.getByLabelText(/email/i), {
-    target: { value: "john@example.com" },
+    target: { value: "code@example.com" },
   });
-  expect(screen.getByLabelText(/name/i)).toHaveValue("John Doe");
-  expect(screen.getByLabelText(/email/i)).toHaveValue("john@example.com");
+  expect(screen.getByLabelText(/name/i)).toHaveValue("Code Iddih");
+  expect(screen.getByLabelText(/email/i)).toHaveValue("code@example.com");
 });
 
 test("checked status of checkboxes changes when user clicks them", () => {
@@ -112,13 +109,14 @@ test("checked status of checkboxes changes when user clicks them", () => {
 test("a message is displayed when the user clicks the Submit button", () => {
   render(<App />);
   fireEvent.change(screen.getByLabelText(/name/i), {
-    target: { value: "John Doe" },
+    target: { value: "Code Iddih" },
   });
   fireEvent.change(screen.getByLabelText(/email/i), {
-    target: { value: "john@example.com" },
+    target: { value: "code@example.com" },
   });
   fireEvent.click(screen.getByLabelText(/coding/i));
   fireEvent.click(screen.getByText(/submit/i));
-  expect(screen.getByText(/thank you for signing up, John Doe!/i)).toBeInTheDocument();
+  expect(screen.getByText(/thank you for signing up, Code Iddih!/i)).toBeInTheDocument();
   expect(screen.getByText(/your interests: coding/i)).toBeInTheDocument();
 });
+
